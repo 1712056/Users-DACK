@@ -5,28 +5,28 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index');
 });
-router.get('/index.html', function(req, res, next) {
+router.get('/trangchu.html', function(req, res, next) {
   res.render('index');
 });
-router.get('/checkout.html', function(req, res, next) {
+router.get('/thanhtoan.html', function(req, res, next) {
   res.render('checkout');
 });
-router.get('/contact.html', function(req, res, next) {
+router.get('/lienhe.html', function(req, res, next) {
   res.render('contact');
 });
 router.get('/error.html', function(req, res, next) {
   res.render('error');
 });
-router.get('/products.html', function(req, res, next) {
+router.get('/sanpham.html', function(req, res, next) {
   res.render('products');
 });
-router.get('/register.html', function(req, res, next) {
+router.get('/dangky.html', function(req, res, next) {
   res.render('register');
 });
-router.get('/signup.html', function(req, res, next) {
+router.get('/dangnhap.html', function(req, res, next) {
   res.render('signup');
 });
-router.get('/single.html', function(req, res, next) {
+router.get('/chitiet.html', function(req, res, next) {
   res.render('single');
 });
 module.exports = router;
