@@ -17,8 +17,33 @@ router.get('/lienhe', function(req, res, next) {
 router.get('/error.html', function(req, res, next) {
   res.render('error');
 });
-router.get('/sanpham', function(req, res, next) {
-  res.render('products');
+var pg = require('pg');
+var config = {
+  user: 'postgres',
+  database: 'users-nair',
+  password: '12345',
+  host: 'localhost',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis: 30000,
+};
+var pool = new pg.Pool(config);
+router.get('/sanpham',function(req, res, next){
+
+
+  pool.connect((err, client, release) => {
+    if (err) {
+      return console.error('Error acquiring client', err.stack)
+    }
+    client.query('SELECT * FROM "Giay"', (err, result) => {
+      release()
+      if (err) {
+        return console.error('Error executing query', err.stack)
+      }
+      console.log();
+      res.render("products", {data:result.rows});
+    })
+  })
 });
 router.get('/dangky', function(req, res, next) {
   res.render('register');
