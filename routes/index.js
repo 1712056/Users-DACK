@@ -1,22 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
-router.get('/trangchu', function(req, res, next) {
-  res.render('index');
-});
-router.get('/thanhtoan', function(req, res, next) {
-  res.render('checkout');
-});
-router.get('/lienhe', function(req, res, next) {
-  res.render('contact');
-});
-router.get('/error.html', function(req, res, next) {
-  res.render('error');
-});
 var pg = require('pg');
 var config = {
   user: 'lwmtvkbdcppemz',
@@ -29,9 +12,47 @@ var config = {
   ssl:true,
 };
 var pool = new pg.Pool(config);
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  pool.connect((err, client, release) => {
+    if (err) {
+      return console.error('Error acquiring client', err.stack)
+    }
+    client.query('SELECT * FROM "Giay"', (err, result) => {
+      release()
+      if (err) {
+        return console.error('Error executing query', err.stack)
+      }
+      console.log();
+      res.render("index", {data:result.rows});
+    })
+  })
+});
+router.get('/trangchu', function(req, res, next) {
+  pool.connect((err, client, release) => {
+    if (err) {
+      return console.error('Error acquiring client', err.stack)
+    }
+    client.query('SELECT * FROM "Giay"', (err, result) => {
+      release()
+      if (err) {
+        return console.error('Error executing query', err.stack)
+      }
+      console.log();
+      res.render("index", {data:result.rows});
+    })
+  })
+});
+router.get('/thanhtoan', function(req, res, next) {
+  res.render('checkout');
+});
+router.get('/lienhe', function(req, res, next) {
+  res.render('contact');
+});
+router.get('/error.html', function(req, res, next) {
+  res.render('error');
+});
 router.get('/sanpham',function(req, res, next){
-
-
   pool.connect((err, client, release) => {
     if (err) {
       return console.error('Error acquiring client', err.stack)
@@ -46,6 +67,23 @@ router.get('/sanpham',function(req, res, next){
     })
   })
 });
+router.get('/sanpham:Brand',function(req, res, next){
+
+
+  pool.connect((err, client, release) => {
+    if (err) {
+      return console.error('Error acquiring client', err.stack)
+    }
+    client.query('SELECT * FROM "Giay" Where "Brand"=$1',[req.params.Brand], (err, result) => {
+      release()
+      if (err) {
+        return console.error('Error executing query', err.stack)
+      }
+      console.log(result.rows);
+      res.render("products", {data:result.rows});
+    })
+  })
+});
 router.get('/dangky', function(req, res, next) {
   res.render('register');
 });
@@ -53,7 +91,6 @@ router.get('/dangnhap', function(req, res, next) {
   res.render('signup');
 });
 router.get('/chitiet:id',function(req, res, next){
-
   var id = req.params.id;
   parseInt(id);
   if(id==1 || id==9 || id==11)
