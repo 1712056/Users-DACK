@@ -14,5 +14,18 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pg": "^7.12.1"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1712056/Users-DAGK-Express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1712056/Users-DAGK-Express/issues"
+  },
+  "homepage": "https://github.com/1712056/Users-DAGK-Express#readme",
+  "description": ""
 }

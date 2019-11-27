@@ -1,67 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var pg = require('pg');
-//file .env
-require('dotenv').config();
-//
-var config = {
-  user: process.env.DB_USER,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  ssl: process.env.DB_SSL,
-};
-var pool = new pg.Pool(config);
+const indexController = require('../controllers/indexController');
+const productsController = require('../controllers/productsController');
+/* GET */
+router.get('/', indexController.index);
+router.get('/Nam', productsController.Nam);
+router.get('/Nu', productsController.Nu);
+router.get('/Treem', productsController.Treem);
+router.get('/Customise', productsController.Customise);
 
-/* GET home page. */
-router.get('/', async function(req, res, next) {
-  const index = await pool.query('SELECT * FROM "index" LIMIT 6')
-  
-  res.render("index",{
-    index : index.rows
-  });
-});
-router.get('/Nam', async function(req, res, next) {
-  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Men']);
-  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Brand"',['Men']);
-  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Men']);
-  res.render("products",{
-    product : product.rows,
-    countBrand: countBrand.rows,
-    countType : countType.rows
-  });
-});
-router.get('/Nu', async function(req, res, next) {
-  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Women']);
-  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" GROUP BY "Brand"');
-  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Women']);
-  res.render("products",{
-    product: product.rows,
-    countBrand: countBrand.rows,
-    countType : countType.rows
-  });
-});
-router.get('/Treem', async function(req, res, next) {
-  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Kid']);
-  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" GROUP BY "Brand"');
-  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Kid']);
-  res.render("products",{
-    product : product.rows,
-    countBrand: countBrand.rows,
-    countType : countType.rows
-  });
-});
-router.get('/Customise', async function(req, res, next) {
-  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Customise']);
-  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" GROUP BY "Brand"');
-  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Customise']);
-  res.render("products",{
-    product : product.rows,
-    countBrand: countBrand.rows,
-    countType : countType.rows
-  });
-});
 router.get('/thanhtoan', function(req, res, next) {
   res.render('checkout');
 });
@@ -101,4 +48,4 @@ router.get('/chitiet:Gioitinh',function(req, res, next){
     })
   })
 });
-module.exports = router;
+ module.exports = router;
