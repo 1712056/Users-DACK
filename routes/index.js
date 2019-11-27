@@ -1,47 +1,66 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
+//file .env
+require('dotenv').config();
+//
 var config = {
-  user: 'lwmtvkbdcppemz',
-  database: 'd2ftd0sald3l3t',
-  password: '8e53568db97c2950fa93af795d1dac6c2581239b483f0950bf86776af685d482',
-  host: 'ec2-107-21-111-24.compute-1.amazonaws.com',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis: 30000,
-  ssl:true,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  ssl: process.env.DB_SSL,
 };
 var pool = new pg.Pool(config);
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  pool.connect((err, client, release) => {
-    if (err) {
-      return console.error('Error acquiring client', err.stack)
-    }
-    client.query('SELECT * FROM "Giay"', (err, result) => {
-      release()
-      if (err) {
-        return console.error('Error executing query', err.stack)
-      }
-      console.log();
-      res.render("index", {data:result.rows});
-    })
-  })
+router.get('/', async function(req, res, next) {
+  const index = await pool.query('SELECT * FROM "index" LIMIT 6')
+  
+  res.render("index",{
+    index : index.rows
+  });
 });
-router.get('/trangchu', function(req, res, next) {
-  pool.connect((err, client, release) => {
-    if (err) {
-      return console.error('Error acquiring client', err.stack)
-    }
-    client.query('SELECT * FROM "Giay"', (err, result) => {
-      release()
-      if (err) {
-        return console.error('Error executing query', err.stack)
-      }
-      console.log();
-      res.render("index", {data:result.rows});
-    })
-  })
+router.get('/Nam', async function(req, res, next) {
+  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Men']);
+  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Brand"',['Men']);
+  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Men']);
+  res.render("products",{
+    product : product.rows,
+    countBrand: countBrand.rows,
+    countType : countType.rows
+  });
+});
+router.get('/Nu', async function(req, res, next) {
+  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Women']);
+  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" GROUP BY "Brand"');
+  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Women']);
+  res.render("products",{
+    product: product.rows,
+    countBrand: countBrand.rows,
+    countType : countType.rows
+  });
+});
+router.get('/Treem', async function(req, res, next) {
+  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Kid']);
+  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" GROUP BY "Brand"');
+  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Kid']);
+  res.render("products",{
+    product : product.rows,
+    countBrand: countBrand.rows,
+    countType : countType.rows
+  });
+});
+router.get('/Customise', async function(req, res, next) {
+  const product = await pool.query('SELECT * FROM "index" WHERE "Gioitinh"=$1',['Customise']);
+  const countBrand = await pool.query('SELECT "Brand", COUNT(*) AS soluong FROM "index" GROUP BY "Brand"');
+  const countType = await pool.query('SELECT "Loai", COUNT(*) AS sl FROM "index" WHERE "Gioitinh"=$1 GROUP BY "Loai" ',['Customise']);
+  res.render("products",{
+    product : product.rows,
+    countBrand: countBrand.rows,
+    countType : countType.rows
+  });
 });
 router.get('/thanhtoan', function(req, res, next) {
   res.render('checkout');
@@ -52,37 +71,13 @@ router.get('/lienhe', function(req, res, next) {
 router.get('/error.html', function(req, res, next) {
   res.render('error');
 });
-router.get('/sanpham',function(req, res, next){
-  pool.connect((err, client, release) => {
-    if (err) {
-      return console.error('Error acquiring client', err.stack)
-    }
-    client.query('SELECT * FROM "Giay"', (err, result) => {
-      release()
-      if (err) {
-        return console.error('Error executing query', err.stack)
-      }
-      console.log();
-      res.render("products", {data:result.rows});
-    })
-  })
-});
-router.get('/sanpham:Brand',function(req, res, next){
-
-
-  pool.connect((err, client, release) => {
-    if (err) {
-      return console.error('Error acquiring client', err.stack)
-    }
-    client.query('SELECT * FROM "Giay" Where "Brand"=$1',[req.params.Brand], (err, result) => {
-      release()
-      if (err) {
-        return console.error('Error executing query', err.stack)
-      }
-      console.log(result.rows);
-      res.render("products", {data:result.rows});
-    })
-  })
+router.get('/Nam?brand=:Brand', async function(req, res, next){
+  console.log(Brand)
+  const product = await pool.query('SELECT * FROM "index" WHERE "Brand"=$1',req.params.Brand);
+  console.log(product);
+  res.render("products",{
+    product : product.rows
+  });
 });
 router.get('/dangky', function(req, res, next) {
   res.render('register');
@@ -90,38 +85,13 @@ router.get('/dangky', function(req, res, next) {
 router.get('/dangnhap', function(req, res, next) {
   res.render('signup');
 });
-router.get('/chitiet:id',function(req, res, next){
-  var id = req.params.id;
-  parseInt(id);
-  if(id==1 || id==9 || id==11)
-  {
-    id=2;
-  }
-  else if(id==2 || id==6)
-  {
-    id=1;
-  }
-  else if(id==3)
-  {
-    id=5;
-  }
-  else if(id==4 || id==12 ||id==11||id==13)
-  {
-    id=4;
-  }
-  else if(id==5)
-  {
-    id=3;
-  }
-  else if(id==7)
-    {
-      id=6;
-    }
+router.get('/chitiet:Gioitinh',function(req, res, next){
+  
   pool.connect((err, client, release) => {
     if (err) {
       return console.error('Error acquiring client', err.stack)
     }
-    client.query('SELECT * FROM "Chitiet" WHERE "id"='+ id, (err, result) => {
+    client.query('SELECT * FROM "detail" WHERE "Gioitinh"=$1', [req.params.Gioitinh], (err, result) => {
       release()
       if (err) {
         return console.error('Error executing query', err.stack)

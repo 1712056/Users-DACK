@@ -1,12 +1,14 @@
 <div class="products-gallery">
+    
     <div class="container">
+        
         <div class="col-md-9 grid-gallery">
-            {{#each data}}
+            {{#each product}}
             <div class="col-md-4 grid-stn simpleCart_shelfItem">
                 <!-- normal -->
                 <div class="ih-item square effect3 bottom_to_top">
                     <div class="bottom-2-top">
-                        <div class="img"><img src={{this.hinh-sanpham}} alt="/" class="img-responsive gri-wid"></div>
+                        <div class="img"><img src={{this.Hinh}} alt="/" class="img-responsive gri-wid"></div>
                         <div class="info">
                             <div class="pull-left styl-hdn">
                                 <h3>{{this.Ten}}</h3>
@@ -23,34 +25,43 @@
                 </div>
                 <!-- end normal -->
                 <div class="quick-view">
-                    <a href="chitiet{{this.id}}">Chi tiết</a>
+                    <a href="chitiet{{this.Gioitinh}}">Chi tiết</a>
                 </div>
             </div>
             {{/each}}
             <div class="clearfix"></div>
         </div>
         <div class="col-md-3 grid-details">
+            
             <div class="grid-addon">
                 <section class="sky-form">
                     <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Thương hiệu</h4>
                     <div class="row row1 scroll-pane">
+                        {{#each countBrand}}
                         <div class="col col-4">
-                            
-                            <a href="/sanphamAdidas">Adidas</a>
+                            <a href="">{{this.Brand}} ({{this.soluong}})</a>
                             </br>
-                            <a href="/sanphamNike">Nike</a>
-                            </br>
-                            <a href="/sanphamConverse">Converse</a>
-                             </br>
-                            <a href="/sanphamPuma">Puma</a>
-                             </br>
-                            <a href="/sanphamNobrand">Nobrand</a>
-                            
                         </div>
+                        {{/each}}
+                    </div>
+                </section>
+                <section class="sky-form">
+                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Thể loại</h4>
+                    <div class="row row1 scroll-pane">
+                        {{#each countType}}
+                        <div class="col col-4">
+                            <a href="/sanpham">{{this.Loai}} ({{this.sl}})</a>
+                            </br>
+                        </div>
+                        {{/each}}
                     </div>
                 </section>
             </div>
+            
         </div>
+         
         <div class="clearfix"></div>
+       
     </div>
+    
 </div>

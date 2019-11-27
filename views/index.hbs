@@ -72,12 +72,12 @@
 </div>
 <div class="shop-grid">
     <div class="container">
-        {{#each data}}
+        {{#each index}}
         <div class="col-md-4 grid-stn simpleCart_shelfItem">
             <!-- normal -->
             <div class="ih-item square effect3 bottom_to_top">
                 <div class="bottom-2-top">
-                    <div class="img"><img src={{this.hinh-sanpham}} alt="/" class="img-responsive gri-wid"></div>
+                    <div class="img"><img src={{this.Hinh}} alt="/" class="img-responsive gri-wid"></div>
                     <div class="info">
                         <div class="pull-left styl-hdn">
                             <h3>{{this.Ten}}</h3>
@@ -92,7 +92,7 @@
             </div>
             <!-- end normal -->
             <div class="quick-view">
-                <a href="chitiet{{this.id}}">Chi tiết</a>
+                <a href="chitiet{{this.Gioitinh}}">Chi tiết</a>
             </div>
         </div>
         {{/each}}
