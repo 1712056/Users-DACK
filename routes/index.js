@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const indexController = require('../controllers/indexController');
 const productsController = require('../controllers/productsController');
+const registerController = require('../controllers/registerController');
 /* GET */
 router.get('/', indexController.index);
 router.get('/Nam', productsController.Nam);
@@ -29,6 +30,7 @@ router.get('/Nam?brand=:Brand', async function(req, res, next){
 router.get('/dangky', function(req, res, next) {
   res.render('register');
 });
+router.post('/register',registerController.register);
 router.get('/dangnhap', function(req, res, next) {
   res.render('signup');
 });
