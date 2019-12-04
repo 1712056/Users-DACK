@@ -5,9 +5,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
+var flash = require('express-flash');
+var session = require('express-session');
+
 //var usersRouter = require('./routes/users');
 
 var app = express();
+const passport = require('passport');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -17,6 +22,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash()); 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false 
+})); 
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

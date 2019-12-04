@@ -9,7 +9,3 @@ function check_pass() {
         document.getElementById("submit").disabled = true;
     }
 }
-function check_username()
-{
-    document.getElementById("usernameCheck").style.display= "block";
-}

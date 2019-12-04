@@ -2,17 +2,21 @@
 <!-- login-page -->
 <div class="login">
     <div class="container">
+
         <div class="login-grids">
             <div class="col-md-6 log">
+                {{#if (message.error)}}
+                <div >{{massage}}</div>
+                {{/if}}
                 <h3>Đăng nhập</h3>
                 <div class="strip"></div>
                 <p>Xin chào, vui lòng nhập vào đây để tiếp tục</p>
                 <p>Nếu trước đây bạn chưa đăng ký với chúng tôi, <a href="dangky">nhấp vào đây</a></p>
-                <form>
+                <form action="/login" method="POST">
                     <h5>Tài khoản: </h5>
-                    <input type="text" value="">
+                    <input type="text" name="username">
                     <h5>Mật khẩu:</h5>
-                    <input type="password" value=""><br>
+                    <input type="password"><br>
                     <input type="submit" value="Đăng nhập">
 
                 </form>
@@ -21,11 +25,14 @@
             <div class="col-md-6 login-right">
                 <h3>Đăng ký mới</h3>
                 <div class="strip"></div>
-                <p>Bằng cách tạo tài khoản với cửa hàng của chúng tôi, bạn sẽ có thể chuyển qua quy trình thanh toán nhanh hơn,
-                    lưu trữ nhiều địa chỉ giao hàng, xem và theo dõi đơn hàng của bạn trong tài khoản của bạn và hơn thế nữa.</p>
+                <p>Bằng cách tạo tài khoản với cửa hàng của chúng tôi, bạn sẽ có thể chuyển qua quy trình thanh toán
+                    nhanh hơn,
+                    lưu trữ nhiều địa chỉ giao hàng, xem và theo dõi đơn hàng của bạn trong tài khoản của bạn và hơn thế
+                    nữa.</p>
                 <a href="dangky" class="button">Tạo tài khoản</a>
             </div>
             <div class="clearfix"></div>
         </div>
+
     </div>
 </div>
