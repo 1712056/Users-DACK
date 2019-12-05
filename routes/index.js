@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const pool = require('../models/data');
 const passport = require('passport');
 const indexController = require('../controllers/indexController');
 const productsController = require('../controllers/productsController');
@@ -31,14 +32,7 @@ router.get('/lienhe', function(req, res, next) {
 router.get('/error.html', function(req, res, next) {
   res.render('error');
 });
-router.get('/Nam?brand=:Brand', async function(req, res, next){
-  console.log(Brand)
-  const product = await pool.query('SELECT * FROM "index" WHERE "Brand"=$1',req.params.Brand);
-  console.log(product);
-  res.render("products",{
-    product : product.rows
-  });
-});
+
 router.get('/dangky', function(req, res, next) {
   res.render('register');
 });
@@ -49,13 +43,13 @@ router.get('/dangnhap', function(req, res, next) {
 router.post('/login' , passport.authenticate('local', { successRedirect: '/',
 failureRedirect: '/dangnhap',
 failureFlash: true }));
-router.get('/chitiet:Gioitinh',function(req, res, next){
+router.get('/chitiet:Ten',function(req, res, next){
   
   pool.connect((err, client, release) => {
     if (err) {
       return console.error('Error acquiring client', err.stack)
     }
-    client.query('SELECT * FROM "detail" WHERE "Gioitinh"=$1', [req.params.Gioitinh], (err, result) => {
+    client.query('SELECT * FROM "detail" WHERE "Ten"=$1', [req.params.Ten], (err, result) => {
       release()
       if (err) {
         return console.error('Error executing query', err.stack)
