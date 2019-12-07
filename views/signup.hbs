@@ -5,8 +5,10 @@
 
         <div class="login-grids">
             <div class="col-md-6 log">
-                {{#if (message.error)}}
-                <div >{{massage}}</div>
+                {{#if error}}
+                <div class="col-md-12">
+                    <p class="text-danger font-italic">{{error}}</p>
+                </div>
                 {{/if}}
                 <h3>Đăng nhập</h3>
                 <div class="strip"></div>
@@ -16,7 +18,7 @@
                     <h5>Tài khoản: </h5>
                     <input type="text" name="username">
                     <h5>Mật khẩu:</h5>
-                    <input type="password"><br>
+                    <input type="password" name="password"><br>
                     <input type="submit" value="Đăng nhập">
 
                 </form>

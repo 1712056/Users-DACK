@@ -4,17 +4,8 @@ const passport = require('passport');
 const indexController = require('../controllers/indexController');
 const productsController = require('../controllers/productsController');
 const registerController = require('../controllers/registerController');
-const initializePassport = require('../config/passport');
-const users = [];
-initializePassport(passport, async username => {
-  users = await pool.query('SELECT * FROM "users" WHERE "username"=$1',[username]);
-  console.log(1);
-  return users.rows.username;
-}, async id =>{
-  users = await pool.query('SELECT * FROM "users" WHERE "id"=$1',[id]);
-  console.log(1);
-  return users.rows.id;
-})
+const loginController = require('../controllers/loginController');
+
 /* GET */
 router.get('/', indexController.index);
 router.get('/Nam', productsController.Nam);
@@ -43,12 +34,15 @@ router.get('/dangky', function(req, res, next) {
   res.render('register');
 });
 router.post('/register',registerController.register);
-router.get('/dangnhap', function(req, res, next) {
-  res.render('signup');
-});
-router.post('/login' , passport.authenticate('local', { successRedirect: '/',
-failureRedirect: '/dangnhap',
-failureFlash: true }));
+router.get('/dangnhap', loginController.login);
+router.post(
+  "/login",
+  passport.authenticate("local.login", {
+    successRedirect: "/",
+    failureRedirect: "/dangnhap",
+    failureFlash: true
+  })
+);
 router.get('/chitiet:Gioitinh',function(req, res, next){
   
   pool.connect((err, client, release) => {
@@ -65,4 +59,4 @@ router.get('/chitiet:Gioitinh',function(req, res, next){
     })
   })
 });
- module.exports = router;
+module.exports = router;

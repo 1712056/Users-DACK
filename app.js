@@ -5,13 +5,26 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
-var flash = require('express-flash');
+var flash = require('connect-flash');
 var session = require('express-session');
+var bodyParser = require("body-parser");
 
 //var usersRouter = require('./routes/users');
 
 var app = express();
 const passport = require('passport');
+
+require("./config/passport");
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false 
+})); 
+app.use(flash()); 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize())
+app.use(passport.session())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,14 +35,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(flash()); 
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false 
-})); 
-app.use(passport.initialize())
-app.use(passport.session())
+
+
 
 
 app.use('/', indexRouter);
