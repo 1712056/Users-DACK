@@ -43,20 +43,5 @@ router.post(
     failureFlash: true
   })
 );
-router.get('/chitiet:Gioitinh',function(req, res, next){
-  
-  pool.connect((err, client, release) => {
-    if (err) {
-      return console.error('Error acquiring client', err.stack)
-    }
-    client.query('SELECT * FROM "detail" WHERE "Gioitinh"=$1', [req.params.Gioitinh], (err, result) => {
-      release()
-      if (err) {
-        return console.error('Error executing query', err.stack)
-      }
-      console.log();
-      res.render("single", {data:result.rows});
-    })
-  })
-});
+router.get('/:Ten', productsController.Single);
 module.exports = router;

@@ -43,4 +43,9 @@ exports.Customise = async function(req, res, next) {
       countType : countType.rows
     });
   };
+/* GET Single product. */
+exports.Single = async function(req, res, next){
+  const detail = await pool.query('SELECT * FROM "detail" WHERE "Ten"=$1',[req.params.Ten]);
+  res.render("single",{detail: detail.rows});
+};
 
