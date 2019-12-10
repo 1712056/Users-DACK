@@ -1,7 +1,6 @@
 <div class="products-gallery">
     
     <div class="container">
-        
         <div class="col-md-9 grid-gallery">
             {{#each product}}
             <div class="col-md-4 grid-stn simpleCart_shelfItem">
@@ -25,7 +24,7 @@
                 </div>
                 <!-- end normal -->
                 <div class="quick-view">
-                    <a href="chitiet{{this.Ten}}">Chi tiết</a>
+                    <a href="/product={{this.id}}">Chi tiết</a>
                 </div>
             </div>
             {{/each}}
@@ -39,7 +38,7 @@
                     <div class="row row1 scroll-pane">
                         {{#each countBrand}}
                         <div class="col col-4">
-                            <a href="">{{this.Brand}} ({{this.soluong}})</a>
+                            <a href="/user={{this.Gioitinh}}&brand={{this.Brand}}&type=ALL">{{this.Brand}} ({{this.soluong}})</a>
                             </br>
                         </div>
                         {{/each}}
@@ -50,7 +49,7 @@
                     <div class="row row1 scroll-pane">
                         {{#each countType}}
                         <div class="col col-4">
-                            <a href="/sanpham">{{this.Loai}} ({{this.sl}})</a>
+                            <a href="/user={{this.Gioitinh}}&brand=ALL&type={{this.Loai}}">{{this.Loai}} ({{this.sl}})</a>
                             </br>
                         </div>
                         {{/each}}
