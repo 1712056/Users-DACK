@@ -30,6 +30,9 @@ app.use(passport.session())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+var hbs = require("hbs");
+hbs.registerPartials(__dirname + "/views/partials");
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

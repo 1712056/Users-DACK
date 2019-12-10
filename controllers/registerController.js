@@ -10,7 +10,6 @@ exports.register = async function(req, res)
         const hashedPwd = await bcrypt.hashSync(password);
         await pool.query('INSERT INTO users(id, username, password) VALUES ($1, $2, $3)',[id, username, hashedPwd]);
         const user = await pool.query('SELECT * FROM "users"');
-        
         res. redirect('/dangnhap');     
     } catch{
         
