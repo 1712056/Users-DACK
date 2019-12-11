@@ -28,78 +28,7 @@
 </head>
 
 <body>
-    <div class="header">
-        <div class="container">
-            <div class="header-top">
-                <div class="logo">
-                    <a href="/">N-AIR</a>
-                </div>
-                <div class="login-bars">
-                    <a class="btn btn-default log-bar" href="dangky" role="button">Đăng ký</a>
-                    <a class="btn btn-default log-bar" href="dangnhap" role="button">Đăng nhập</a>
-                    <div class="cart box_1">
-                        <a href="thanhtoan">
-                            <h3>
-                                <div class="total">
-                                    <span class="simpleCart_total"></span>(<span id="simpleCart_quantity"
-                                        class="simpleCart_quantity"></span>)</div>
-                            </h3>
-                        </a>
-                        <p><a href="javascript:;" class="simpleCart_empty">Giỏ hàng</a></p>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <!---menu-----bar--->
-            <div class="header-botom">
-                <div class="content white">
-                    <nav class="navbar navbar-default nav-menu" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                        </div>
-                        <div class="clearfix"></div>
-                        <!--/.navbar-header-->
-
-                        <div class="collapse navbar-collapse collapse-pdng " id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav nav-font">
-                                <li>
-                                <a href="/user=Men&brand=ALL&type=ALL">Nam</a>
-                                </li>
-                                <li>
-                                    <a href="/user=Women&brand=ALL&type=ALL">Nữ </a>
-                                </li>
-
-                                <li>
-                                    <a href="/user=Treem&brand=ALL&type=ALL">Trẻ em
-                                            </a>
-                                </li>
-                                <li>
-                                    <a href="/user=Customise&brand=ALL&type=ALL">Customise
-                                            </a>
-                                </li>
-                                <li><a href="lienhe">Liên hệ</a></li>
-                                <div class="clearfix"></div>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <!--/.navbar-collapse-->
-                        <div class="clearfix"></div>
-                    </nav>
-                    <!--/.navbar-->
-                    <div class="clearfix"></div>
-                </div>
-                <!--/.content--->
-            </div>
-            <!--header-bottom-->
-        </div>
-    </div>
+    {{> header}}
     {{{ body }}}
     <div class="footer-grid">
         <div class="container">
