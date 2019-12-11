@@ -29,6 +29,8 @@ exports.Filter= async function(req, res, next) {
       brand : req.params.brand,
       user : req.params.user,
       type: req.params.type,
+      order:req.params.order,
+      order2:req.params.order2,
       headerTop: function() {
         if (req.isAuthenticated()) {
           return "headAuthen";
