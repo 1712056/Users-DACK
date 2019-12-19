@@ -1883,3 +1883,8 @@ div textarea {
         height: 250px;
     }
 }
+.text-danger{
+    color: red;
+    font-size: 1.5em;
+}
+

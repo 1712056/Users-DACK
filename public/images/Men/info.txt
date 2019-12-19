@@ -1,0 +1,14 @@
+Men:
+Nike-BB: Nike Zoom Rise-4.109.000
+Nike-WK: Nike Flex RN 2019-2.499.000
+Jordan-BB: Jordan Why Not? Zer0.2 - 4.259
+Jordan-RN: Jordan Trunner NXT React-4.109
+Nikes-RN: Nike Air Monarch IV-1.909
+Women:
+Nike-bb: Kyrie 6-3.829
+Nike-wk: Nike Air Zoom Winflo 6-2.929
+Jordan-bb: Air Jordan XXXIV PF-5.129
+Jordan-rn: Air Jordan 11 Low-4.018
+Nikes-rn: Nike Air VaporMax Flyknit 3-5.869
+
+

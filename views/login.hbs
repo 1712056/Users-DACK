@@ -11,10 +11,10 @@
                 <p>Nếu trước đây bạn chưa đăng ký với chúng tôi, <a href="dangky">nhấp vào đây</a></p>
                 {{#if error}}
                     <div class="col-md-12">
-                        <p class="text-danger font-italic">{{error}}</p>
+                        <span class="text-danger font-italic">{{error}}</span>
                     </div>
                 {{/if}}
-                <form action="/login" method="POST">
+                <form action="/dangnhap" method="POST">
                     <h5>Tài khoản: </h5>
                     <input type="text" name="username">
                     <h5>Mật khẩu:</h5>

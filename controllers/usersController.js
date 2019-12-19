@@ -1,8 +1,20 @@
 //register
 var pool =require('../models/data');
 var bcrypt = require('bcryptjs');
+const passport = require('passport');
 
-exports.register = async function(req, res)
+module.exports.getRegister = function(req, res, next) {
+    res.render('register',{
+      headerTop: function() {
+        if (req.isAuthenticated()) {
+          return "headAuthen";
+        } else {
+          return "headUnAuthen";
+        }
+      }
+    });
+  }
+module.exports.postRegister = async function(req, res)
 {
     try{
         const id = await Date.now();
@@ -28,7 +40,7 @@ exports.register = async function(req, res)
           }
         })    
     } catch{
-        res.render("dangky",{
+        res.render("register",{
           title: "Đăng nhập",
           headerTop: function() {
             if (req.isAuthenticated()) {
@@ -43,11 +55,11 @@ exports.register = async function(req, res)
               return req.user.username;
             }
           },
-          error: req.flash("error")
+          error: "Tài khoản đã tồn tại!"
     })}
 };
 //login
-exports.login = function(req, res, next) {
+module.exports.getLogin = function(req, res, next) {
     if (req.isUnauthenticated()){
       res.render("login", {
         title: "Đăng nhập",
@@ -69,7 +81,12 @@ exports.login = function(req, res, next) {
     }
     else res.redirect("/");
 }
-exports.logout = function (req, res){
+module.exports.postLogin = passport.authenticate("local.login", {
+      successRedirect: "/",
+      failureRedirect: "/dangnhap",
+      failureFlash: true
+    });
+module.exports.getLogout = function (req, res){
   if (req.isUnauthenticated()){
     res.render("/", {
       title: "Đăng nhập",

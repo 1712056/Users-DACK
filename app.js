@@ -9,7 +9,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var bodyParser = require("body-parser");
 
-//var usersRouter = require('./routes/users');
+
 
 var app = express();
 const passport = require('passport');
@@ -26,6 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Require routing
+const routing = require("./routing");
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -33,17 +37,21 @@ app.set('view engine', 'hbs');
 var hbs = require("hbs");
 hbs.registerPartials(__dirname + "/views/partials");
 
+require("./helper");
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const { getStateAuthenticated } = require("./controllers/authenticationController");
+
+// Routing
+app.use("/", getStateAuthenticated, routing);
 
 
 
-app.use('/', indexRouter);
-//app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

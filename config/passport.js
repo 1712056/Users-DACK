@@ -6,7 +6,7 @@ passport.serializeUser(function(user, done) {
     done(null, user.username);
   });
   
-  passport.deserializeUser(async function(username, done) {
+passport.deserializeUser(async function(username, done) {
     const user = await usersModel.findUser(username);
     if (!user) {
       done(new Error("Tài khoản không tồn tại"));

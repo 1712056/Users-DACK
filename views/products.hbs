@@ -1,8 +1,7 @@
 <div class="products-gallery">
-    
     <div class="container">
         <div class="col-md-9 grid-gallery">
-            {{#each product}}
+            {{#each allProducts}}
             <div class="col-md-4 grid-stn simpleCart_shelfItem">
                 <!-- normal -->
                 <div class="ih-item square effect3 bottom_to_top">
@@ -28,17 +27,32 @@
                 </div>
             </div>
             {{/each}}
+
             <div class="clearfix"></div>
+            <!--Pagination-->
+            <nav aria-label="Page navigation example">
+                <div class="col-lg-6 col-md-6">
+                        <p>Hiển thị kết quả từ {{startIndex}} đến {{endIndex}} trên {{totalItems}}</p>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                <ul class="pagination">
+                    {{#pagination pageCount currentPage 2 path}}
+                    {{/pagination}}
+                </ul>
+                </div>
+            </nav>
+            <!--End Pagination -->
         </div>
         <div class="col-md-3 grid-details">
-            
+
             <div class="grid-addon">
                 <section class="sky-form">
                     <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Thương hiệu</h4>
                     <div class="row row1 scroll-pane">
                         {{#each countBrand}}
                         <div class="col col-4">
-                            <a href="/user={{this.Gioitinh}}&brand={{this.Brand}}&type=ALL&:{{order}}&:{{order2}}">{{this.Brand}} ({{this.soluong}})</a>
+                            <a href="/user={{this.Gioitinh}}&brand={{this.Brand}}&type=ALL&:{{order}}&:{{order2}}">{{this.Brand}}
+                                ({{this.soluong}})</a>
                             </br>
                         </div>
                         {{/each}}
@@ -48,43 +62,43 @@
                     <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Thể loại</h4>
                     <div class="row row1 scroll-pane">
                         {{#each countType}}
-                        
+
                         <div class="col col-4">
-                            <a href="/user={{this.Gioitinh}}&brand=ALL&type={{this.Loai}}&:{{order}}&:{{order2}}">{{this.Loai}} ({{this.sl}})</a>
+                            <a href="/user={{this.Gioitinh}}&brand=ALL&type={{this.Loai}}&:{{order}}&:{{order2}}">{{this.Loai}}
+                                ({{this.sl}})</a>
                             </br>
                         </div>
-                        
+
                         {{/each}}
                     </div>
                 </section>
-                
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Sắp xếp</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <a href="/user={{user}}&brand={{brand}}&type={{type}}&Ten&tang">A->Z</a>
-                            </br>
-                        </div>
-                        <div class="col col-4">
-                            <a href="/user={{user}}&brand={{brand}}&type={{type}}&Ten&giam">Z->A</a>
-                            </br>
-                        </div>
-                        <div class="col col-4">
-                            <a href="/user={{user}}&brand={{brand}}&type={{type}}&Gia&tang">Giá tăng dần</a>
-                            </br>
-                        </div>
-                        <script></script>
-                        <div class="col col-4">
-                            <a href="/user={{user}}&brand={{brand}}&type={{type}}&Gia&giam">Giá giảm dần</a>
-                            </br>
-                        </div>
+
+                <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Sắp xếp</h4>
+                <div class="row row1 scroll-pane">
+                    <div class="col col-4">
+                        <a href="/user={{user}}&brand={{brand}}&type={{type}}&Ten&tang">A->Z</a>
+                        </br>
                     </div>
-                
+                    <div class="col col-4">
+                        <a href="/user={{user}}&brand={{brand}}&type={{type}}&Ten&giam">Z->A</a>
+                        </br>
+                    </div>
+                    <div class="col col-4">
+                        <a href="/user={{user}}&brand={{brand}}&type={{type}}&Gia&tang">Giá tăng dần</a>
+                        </br>
+                    </div>
+                    <script></script>
+                    <div class="col col-4">
+                        <a href="/user={{user}}&brand={{brand}}&type={{type}}&Gia&giam">Giá giảm dần</a>
+                        </br>
+                    </div>
+                </div>
+
             </div>
-            
+
         </div>
-         
+
         <div class="clearfix"></div>
-       
+
     </div>
-    
 </div>
