@@ -22,23 +22,7 @@ module.exports.postRegister = async function(req, res)
         const password = await req.body.password;
         const hashedPwd = await bcrypt.hashSync(password);
         await pool.query('INSERT INTO users(id, username, password) VALUES ($1, $2, $3)',[id, username, hashedPwd]);
-        const user = await pool.query('SELECT * FROM "users"');
-        res.render("index",{
-          index : index.rows,
-          headerTop: function() {
-            if (req.isAuthenticated()) {
-              return "headAuthen";
-            } else {
-              return "headUnAuthen";
-            }
-          },
-          username: function(){
-            if(req.isAuthenticated())
-            {
-              return req.user.username;
-            }
-          }
-        })    
+        res.redirect("/dangnhap")
     } catch{
         res.render("register",{
           title: "Đăng nhập",

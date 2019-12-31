@@ -6,7 +6,7 @@
             <div class="price-details">
                 <h3>Giá tiền</h3>
                 <span>Tổng cộng</span>
-                <span class="total1">13.110.000VNĐ</span>
+                <span class="total1"><span class="simpleCart_total"></span></span>
                 <span>Giảm giá</span>
                 <span class="total1">10%(VIP)</span>
                 <span>Phí vận chuyển</span>
@@ -18,14 +18,15 @@
                 <li class="last_price">
                     <h4>TỔNG</h4>
                 </li>
-                <li class="last_price"><span>13.140.000VNĐ</span></li>
+                <li class="last_price"><span><span class="simpleCart_total"></span></span></li>
                 <div class="clearfix"> </div>
             </ul>
             <div class="clearfix"></div>
             <a class="order" href="#">Đặt hàng</a>
         </div>
         <div class="col-md-9 cart-items">
-            <h1>GIỎ HÀNG CỦA TÔI(2)</h1>
+            <h1>GIỎ HÀNG CỦA TÔI(<span id="simpleCart_quantity"
+            class="simpleCart_quantity"></span>)</h1>
             <script>$(document).ready(function (c) {
                     $('.close1').on('click', function (c) {
                         $('.cart-header').fadeOut('slow', function (c) {
@@ -42,12 +43,31 @@
                     </div>
                     <div class="cart-item-info">
                         <ul class="qty">
-                            <li>
-                                <p>Kích thước : 43</p>
+                            <ul>
+                            <li class="qty">
+                                <p>Kích thước</p>
+                                <select class="form-control siz-chrt">
+                                    <option>41</option>
+                                    <option>42</option>
+                                    <option>43</option>
+                                    <option>44</option>
+                                    <option>45</option>
+                                    <option>46</option>
+                                </select>
                             </li>
-                            <li>
-                                <p>Số lượng : 1</p>
+                            <li class="qty">
+                                <p>Số lượng</p>
+                                <select class="form-control qnty-chrt">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                </select>
                             </li>
+                        </ul>
                             <li>
                                 <p>Thành tiền : 4.370.000VNĐ</p>
                             </li>
@@ -62,41 +82,7 @@
 
                 </div>
             </div>
-            <script>$(document).ready(function (c) {
-                    $('.close2').on('click', function (c) {
-                        $('.cart-header2').fadeOut('slow', function (c) {
-                            $('.cart-header2').remove();
-                        });
-                    });
-                });
-            </script>
-            <div class="cart-header2">
-                <div class="close2"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
-                <div class="cart-sec simpleCart_shelfItem">
-                    <div class="cart-item cyc">
-                        <img src="images/grid7.jpg" class="img-responsive" alt="" />
-                    </div>
-                    <div class="cart-item-info">
-                        <ul class="qty">
-                            <li>
-                                <p>Kích thước : 42</p>
-                            </li>
-                            <li>
-                                <p>Số lượng : 2</p>
-                            </li>
-                            <li>
-                                <p>Thành tiền : 8.740.000VNĐ</p>
-                            </li>
-                        </ul>
-                        <div class="delivery">
-                            <p>Phí dịch vụ : 8.740.000VNĐ</p>
-                            <span>Giao hàng từ 2-3 ngày</span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
+            
         </div>
         <div class="clearfix"> </div>
     </div>

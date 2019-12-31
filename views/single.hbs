@@ -1,5 +1,5 @@
 <div>
-    {{#each data}}
+    {{#each dataDetail}}
     <div class="showcase-grid">
         <div class="container">
             <div class="col-md-8 showcase">
@@ -166,19 +166,20 @@
     <div class="you-might-like">
         <div class="container">
             <h3 class="you-might">Sản phẩm bạn có thể thích</h3>
+            {{#each dataRelate}}
             <div class="col-md-4 grid-stn simpleCart_shelfItem">
                 <!-- normal -->
                 <div class="ih-item square effect3 bottom_to_top">
                     <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid4.jpg" alt="/" class="img-responsive gri-wid"></div>
+                        <div class="img"><img src="{{this.Hinh}}" alt="/" class="img-responsive gri-wid"></div>
                         <div class="info">
                             <div class="pull-left styl-hdn">
-                                <h3>Nike Air Max</h3>
+                                <h3>{{this.Ten}}</h3>
                             </div>
                             <div class="pull-right styl-price">
                                 <p><a href="#" class="item_add"><span
                                             class="glyphicon glyphicon-shopping-cart grid-cart"
-                                            aria-hidden="true"></span> <span class=" item_price">4.370.000VNĐ</span></a>
+                                            aria-hidden="true"></span> <span class=" item_price">{{this.Gia}}</span></a>
                                 </p>
                             </div>
                             <div class="clearfix"></div>
@@ -187,57 +188,10 @@
                 </div>
                 <!-- end normal -->
                 <div class="quick-view">
-                    <a href="chitietMen">Chi tiết</a>
+                    <a href="/product={{this.id}}">Chi tiết</a>
                 </div>
             </div>
-            <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                <!-- normal -->
-                <div class="ih-item square effect3 bottom_to_top">
-                    <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid6.jpg" alt="/" class="img-responsive gri-wid"></div>
-                        <div class="info">
-                            <div class="pull-left styl-hdn">
-                                <h3>Nike Air Max</h3>
-                            </div>
-                            <div class="pull-right styl-price">
-                                <p><a href="#" class="item_add"><span
-                                            class="glyphicon glyphicon-shopping-cart grid-cart"
-                                            aria-hidden="true"></span> <span class=" item_price">4.370.000VNĐ</span></a>
-                                </p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end normal -->
-                <div class="quick-view">
-                    <a href="chitietMen">Chi tiết</a>
-                </div>
-            </div>
-            <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                <!-- normal -->
-                <div class="ih-item square effect3 bottom_to_top">
-                    <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid3.jpg" alt="/" class="img-responsive gri-wid"></div>
-                        <div class="info">
-                            <div class="pull-left styl-hdn">
-                                <h3>Nike Air Max</h3>
-                            </div>
-                            <div class="pull-right styl-price">
-                                <p><a href="#" class="item_add"><span
-                                            class="glyphicon glyphicon-shopping-cart grid-cart"
-                                            aria-hidden="true"></span> <span class=" item_price">4.370.000VNĐ</span></a>
-                                </p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end normal -->
-                <div class="quick-view">
-                    <a href="chitietMen">Chi tiết</a>
-                </div>
-            </div>
+            {{/each}}
             <div class="clearfix"></div>
         </div>
     </div>

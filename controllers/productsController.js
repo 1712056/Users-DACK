@@ -87,8 +87,11 @@ module.exports.getAllProducts = async function (req, res, next) {
 };
 module.exports.getDetailProduct = async function (req, res) {
   const result = await pool.query('SELECT * FROM "index" as idx left join "detail" as dt ON idx.id = dt.id WHERE idx.id=$1', [req.params.product]);
+  const dataType = await pool.query('SELECT "Loai" FROM "index" WHERE "id"=$1',[req.params.product]);
+  const dataRelate = await pool.query('SELECT * FROM "index" WHERE "Loai" = $1 ORDER BY random() LIMIT 3', [dataType.rows[0].Loai]);
   res.render("single", {
-    data: result.rows, headerTop: function () {
+    dataRelate: dataRelate.rows,
+    dataDetail: result.rows, headerTop: function () {
       if (req.isAuthenticated()) {
         return "headAuthen";
       } else {
