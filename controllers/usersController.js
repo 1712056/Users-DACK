@@ -4,16 +4,31 @@ var bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 module.exports.getRegister = function(req, res, next) {
-    res.render('register',{
+  if(req.isUnauthenticated())
+  {
+    res.render("register", {
+      title: "Đăng nhập",
       headerTop: function() {
         if (req.isAuthenticated()) {
           return "headAuthen";
         } else {
           return "headUnAuthen";
         }
-      }
+      },
+      username: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ten;
+        }
+      },
+      error: req.flash("error")
     });
   }
+  else{
+    res.redirect('/');
+  }
+}
+ 
 module.exports.postRegister = async function(req, res)
 {
     try{
@@ -101,35 +116,59 @@ module.exports.getLogout = function (req, res){
   }
 }
 module.exports.getAccSet = function(req, res){
-  res.render('profile',{
-    headerTop: function() {
-      if (req.isAuthenticated()) {
-        return "headAuthen";
-      } else {
-        return "headUnAuthen";
-      }
-    },
-    username: function(){
-      if(req.isAuthenticated())
-      {
-        return req.user.Ten;
-      }
-    },
-    phoneNum: function(){
-      if(req.isAuthenticated())
-      {
-        return req.user.SDT;
-      }
-    },
-    email: function(){
-      if(req.isAuthenticated())
-      {
-        return req.user.email;
+  if(req.isAuthenticated())
+  {
+    res.render('profile',{
+      headerTop: function() {
+        if (req.isAuthenticated()) {
+          return "headAuthen";
+        } else {
+          return "headUnAuthen";
+        }
+      },
+      surname: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ho;
+        }
+      },
+      username: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.username;
+        }
+      },
+      name: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ten;
+        }
+      },
+      phoneNum: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.SDT;
+        }
+      },
+      email: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Email;
+        }
       }
     }
+   );
   }
- );
+  else{
+    res.redirect('/dangnhap');
+  }
 }
-module.exports.postAccSet = function(req, res){
-  
+module.exports.postAccSet = async function(req, res){
+    const surname = await req.body.surname;
+    const name = await req.body.name;
+    const phone = await req.body.phoneNum;
+    const email = await req.body.email;
+    console.log(req.user.username);
+    await pool.query('UPDATE users SET "Ho"=$1, "Ten"=$2, "SDT"=$3, "Email"=$4 WHERE "username"=$5', [surname, name, phone, email, req.user.username]);
+    res.redirect('/taikhoan')
 }
