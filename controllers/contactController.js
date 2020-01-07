@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
             },
             username: function () {
                 if (req.isAuthenticated()) {
-                    return req.user.username;
+                    return req.user.Ten;
                 }
             }
         });

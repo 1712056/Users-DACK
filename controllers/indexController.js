@@ -15,7 +15,8 @@ module.exports = async function(req, res, next) {
       username: function(){
         if(req.isAuthenticated())
         {
-          return req.user.username;
+          console.log(req.user.Ten)
+          return req.user.Ten;
         }
       }
     }

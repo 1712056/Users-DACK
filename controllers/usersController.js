@@ -21,7 +21,11 @@ module.exports.postRegister = async function(req, res)
         const username = await req.body.username;
         const password = await req.body.password;
         const hashedPwd = await bcrypt.hashSync(password);
-        await pool.query('INSERT INTO users(id, username, password) VALUES ($1, $2, $3)',[id, username, hashedPwd]);
+        const surname = await req.body.surname;
+        const name = await req.body.name;
+        const phone = await req.body.phone;
+        const email = await req.body.email;
+        await pool.query('INSERT INTO users(id, username, password, "Ho", "Ten", "SDT", "Email") VALUES ($1, $2, $3, $4, $5, $6, $7)',[id, username, hashedPwd, surname, name, phone, email]);
         res.redirect("/dangnhap")
     } catch{
         res.render("register",{
@@ -36,7 +40,7 @@ module.exports.postRegister = async function(req, res)
           username: function(){
             if(req.isAuthenticated())
             {
-              return req.user.username;
+              return req.user.Ten;
             }
           },
           error: "Tài khoản đã tồn tại!"
@@ -57,7 +61,7 @@ module.exports.getLogin = function(req, res, next) {
         username: function(){
           if(req.isAuthenticated())
           {
-            return req.user.username;
+            return req.user.Ten;
           }
         },
         error: req.flash("error")
@@ -84,7 +88,7 @@ module.exports.getLogout = function (req, res){
       username: function(){
         if(req.isAuthenticated())
         {
-          return req.user.username;
+          return req.user.Ten;
         }
       },
       error: req.flash("error")
@@ -95,4 +99,37 @@ module.exports.getLogout = function (req, res){
     req.logout();
     res.redirect("/");
   }
+}
+module.exports.getAccSet = function(req, res){
+  res.render('profile',{
+    headerTop: function() {
+      if (req.isAuthenticated()) {
+        return "headAuthen";
+      } else {
+        return "headUnAuthen";
+      }
+    },
+    username: function(){
+      if(req.isAuthenticated())
+      {
+        return req.user.Ten;
+      }
+    },
+    phoneNum: function(){
+      if(req.isAuthenticated())
+      {
+        return req.user.SDT;
+      }
+    },
+    email: function(){
+      if(req.isAuthenticated())
+      {
+        return req.user.email;
+      }
+    }
+  }
+ );
+}
+module.exports.postAccSet = function(req, res){
+  
 }

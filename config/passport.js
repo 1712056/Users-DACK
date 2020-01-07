@@ -18,6 +18,7 @@ passport.use(
       {
         usernameField: "username",
         passwordField: "password",
+        nameField: "Ten",
         passReqToCallback: true
       }, async function(req, username, password, done) 
       {

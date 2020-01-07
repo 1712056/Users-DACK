@@ -6,6 +6,7 @@ router.get('/dangky', usersController.getRegister);
 router.post('/dangky', usersController.postRegister);
 router.get('/dangnhap', usersController.getLogin);
 router.post('/dangnhap', usersController.postLogin);
-router.get('/dangxuat', usersController.getLogout)
+router.get('/dangxuat', usersController.getLogout);
+router.get('/taikhoan', usersController.getAccSet);
 
 module.exports = router;

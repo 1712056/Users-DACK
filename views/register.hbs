@@ -13,34 +13,38 @@
             <form action="/dangky" method="POST">
                 <ul>
                     <li class="text-info">Họ: </li>
-                    <li><input type="text"  pattern="{1,}" required="required"></li>
+                    <li><input type="text" name="surname" pattern="[A-Za-z]{1,}"></li>
                 </ul>
                 <ul>
                     <li class="text-info">Tên: </li>
-                    <li><input type="text"  pattern="{1,}" required="required"></li>
+                    <li><input type="text" name="name" pattern="[A-Za-z]{1,}" required="required"></li>
+                </ul>
+                <ul>
+                    <li class="text-info">Email </li>
+                    <li><input type="email" name="email" pattern="[A-Za-z0-9]{1,}"></li>
                 </ul>
                 <ul>
                     <li class="text-info">Tài khoản </li>
-                    <li><input type="text" name="username" pattern="[A-za-z0-9]{1,}" required="required"></li>
+                    <li><input type="text" name="username" pattern="[A-Za-z0-9]{1,}" required="required"></li>
                 </ul>
                 <ul>
                     <li class="text-info">Mật khẩu: </li>
-                    <li><input id="password" type="password" name="password" pattern="[A-za-z0-9]{6,}" 
+                    <li><input id="password" type="password" name="password" pattern="[A-Za-z0-9]{6,}" 
                                 required="required" title="Ít nhất 6 ký tự, không bao gồm ký tự đặc biệt"
                                 onchange="check_pass()"></li>
                 </ul>
                 <ul>
                     <li class="text-info">Nhập lại mật khẩu:</li>
-                    <li><input id="repassword" type="password" name="repassword" pattern="[A-za-z0-9]{6,}" 
+                    <li><input id="repassword" type="password" name="repassword" pattern="[A-Za-z0-9]{6,}" 
                                 required="required" title="Ít nhất 6 ký tự, không bao gồm ký tự đặc biệt"
                                 onchange="check_pass()"></li>
                     <li id="notice" style="display: none; color: red; font-size: 1.5em;"> Mật khẩu không khớp</li>
                 </ul>
                 <ul>
                     <li class="text-info">Số điện thoại:</li>
-                    <li><input type="text" pattern="[0-9]{1,}"></li>
+                    <li><input type="text" name="phone" pattern="[0-9]{1,}"></li>
                 </ul>
-                <input id="submit" type="submit" value="Register Now" disabled="disabled">
+                <input id="submit" type="submit" value="Đăng ký ngay" disabled="disabled">
                 <p class="click">Khi nhấp vào nút này, bạn đồng ý với <a href="#">điều khoản và điều kiện của chúng tôi.</a></p>
             </form>
         </div>
