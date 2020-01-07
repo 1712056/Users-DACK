@@ -1,6 +1,8 @@
 
 
 module.exports.cartShopping = function (req, res, next) {
+  if(req.isAuthenticated())
+  {
   res.render('checkout',
     {
       headerTop: function () {
@@ -16,4 +18,8 @@ module.exports.cartShopping = function (req, res, next) {
         }
       }
     });
+  }
+  else{
+    res.redirect('/dangnhap');
+  }
 };

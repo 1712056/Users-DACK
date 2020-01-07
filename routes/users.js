@@ -9,5 +9,6 @@ router.post('/dangnhap', usersController.postLogin);
 router.get('/dangxuat', usersController.getLogout);
 router.get('/taikhoan', usersController.getAccSet);
 router.post('/taikhoan', usersController.postAccSet);
-
+router.get('/taikhoan/doimatkhau',usersController.getChangePwd);
+router.post('/taikhoan/doimatkhau', usersController.postChangePwd);
 module.exports = router;

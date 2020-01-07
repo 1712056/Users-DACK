@@ -42,7 +42,7 @@
                     <div class="stardust-dropdown__item-body stardust-dropdown__item-body--open">
                         <div class="userpage-sidebar-menu__subsection"><a class="_17BcjA _1EUbVp" href="/taikhoan"><span
                                     class="_2ilxaJ">Hồ sơ</span></a><a class="_17BcjA"
-                                href="/user/account/password"><span class="_2ilxaJ">Đổi mật khẩu</span></a>
+                                href="/taikhoan/doimatkhau"><span class="_2ilxaJ">Đổi mật khẩu</span></a>
                         </div>
                     </div>
                 </div><a class="userpage-sidebar-menu-entry" href="/user/purchase/">
@@ -77,6 +77,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="my-account-section__header">
+                    <div class="my-account-section__header">
+                            {{#if message}}
+                            <div class="my-account-section__header-subtitle"><span class="text-danger font-italic">{{message}}</span></div>
+                            {{/if}}
+                        </div>
                     {{!-- profile setting --}}
                     <form action="/taikhoan" method="POST">
                         <div class="my-account-profile">
@@ -161,7 +167,7 @@
                                     </div>
                                 </div>
                                 <div class="my-account-page__submit">
-                                    <input id="submit" type="submit" value="Lưu" >
+                                    <input id="submit" type="submit" value="Lưu">
                                 </div>
                             </div>
                             <div class="my-account-profile__right">

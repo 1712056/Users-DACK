@@ -2,7 +2,7 @@
 var pool =require('../models/data');
 var bcrypt = require('bcryptjs');
 const passport = require('passport');
-
+//register
 module.exports.getRegister = function(req, res, next) {
   if(req.isUnauthenticated())
   {
@@ -89,6 +89,7 @@ module.exports.postLogin = passport.authenticate("local.login", {
       failureRedirect: "/dangnhap",
       failureFlash: true
     });
+//logout
 module.exports.getLogout = function (req, res){
   if (req.isUnauthenticated()){
     res.render("/", {
@@ -115,6 +116,7 @@ module.exports.getLogout = function (req, res){
     res.redirect("/");
   }
 }
+//profile setting
 module.exports.getAccSet = function(req, res){
   if(req.isAuthenticated())
   {
@@ -168,7 +170,150 @@ module.exports.postAccSet = async function(req, res){
     const name = await req.body.name;
     const phone = await req.body.phoneNum;
     const email = await req.body.email;
-    console.log(req.user.username);
     await pool.query('UPDATE users SET "Ho"=$1, "Ten"=$2, "SDT"=$3, "Email"=$4 WHERE "username"=$5', [surname, name, phone, email, req.user.username]);
     res.redirect('/taikhoan')
+}
+//change password
+module.exports.getChangePwd = function(req, res)
+{
+  if(req.isAuthenticated())
+  {
+    res.render('changePwd',{
+      headerTop: function() {
+        if (req.isAuthenticated()) {
+          return "headAuthen";
+        } else {
+          return "headUnAuthen";
+        }
+      },
+      surname: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ho;
+        }
+      },
+      username: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.username;
+        }
+      },
+      name: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ten;
+        }
+      },
+      phoneNum: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.SDT;
+        }
+      },
+      email: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Email;
+        }
+      }
+    }
+   );
+  }
+  else{
+    res.redirect('/dangnhap');
+  }
+}
+module.exports.postChangePwd = async function(req, res)
+{
+  
+  if (bcrypt.compareSync(req.body.pwdCur, req.user.password)) {
+    const hashedPwd = await bcrypt.hashSync(req.body.password);
+    await pool.query('UPDATE users SET "password"=$1 WHERE "username"=$2', [hashedPwd, req.user.username]);
+    res.render('profile',{
+      headerTop: function() {
+        if (req.isAuthenticated()) {
+          return "headAuthen";
+        } else {
+          return "headUnAuthen";
+        }
+      },
+      surname: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ho;
+        }
+      },
+      username: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.username;
+        }
+      },
+      name: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ten;
+        }
+      },
+      phoneNum: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.SDT;
+        }
+      },
+      email: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Email;
+        }
+      },
+      message: "Cập nhật thành công!"
+    }
+   );
+    
+  }
+  else{
+    res.render('changePwd',{
+      headerTop: function() {
+        if (req.isAuthenticated()) {
+          return "headAuthen";
+        } else {
+          return "headUnAuthen";
+        }
+      },
+      surname: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ho;
+        }
+      },
+      username: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.username;
+        }
+      },
+      name: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Ten;
+        }
+      },
+      phoneNum: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.SDT;
+        }
+      },
+      email: function(){
+        if(req.isAuthenticated())
+        {
+          return req.user.Email;
+        }
+      },
+      error: "Sai mật khẩu hiện tại, vui lòng nhập lại"
+    }
+   );
+    
+  }
 }
